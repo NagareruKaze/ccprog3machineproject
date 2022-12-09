@@ -3,11 +3,7 @@ public class Flower extends Crop {
         super(seed, currentDay);
     }
 
-    public double computeHarvestPrice(FarmerType farmerType, int productsProduced) {
-        super.removeExcess(farmerType);
-        double harvestTotal = super.getSeed().getProduceMin() * (super.getSeed().getSellPrice() + farmerType.getBonusEarnings());
-        double waterBonus = harvestTotal * 0.2 * (super.getWaterCount() - 1);
-        double fertilizerBonus = harvestTotal * 0.5 * super.getFertilizerCount();
+    public double computeHarvestPrice(double harvestTotal, double waterBonus, double fertilizerBonus) {
         double finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
 
         return finalHarvestPrice * 1.1;

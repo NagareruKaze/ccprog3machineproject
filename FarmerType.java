@@ -1,5 +1,3 @@
-
-
 public abstract class FarmerType {
     private final String name;
     private final int levelReq;

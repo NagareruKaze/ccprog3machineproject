@@ -245,23 +245,29 @@ public class PlayerController {
 				String text = "";
 				
 				text += "SEEDS\n";
-				text += "Name          Type              Cost              Water Needs (Bonus Limit)          Fertilizer Needs (Bonus Limit)          Harvest Time     Products Produced     Base Selling Per Piece     Base Experience\n";
-				text += "Turnip         Root Crop      5                    1 (2)                                            0 (1)                                                2 Days                1-2                            6                                    5\n";
-				text += "Carrot         Root Crop      10                   1 (2)                                            0 (1)                                                3 Days                1-2                            9                                    7.5\n";
-				text += "Potato         Root Crop      20                   3 (4)                                            1 (2)                                                5 Days                1-10                          3                                   12.5\n";
-				text += "Rose            Flower            5                    1 (2)                                            0 (1)                                                1 Day                 1                                5                                   2.5\n";
-				text += "Tulips          Flower           10                   2 (3)                                            0 (1)                                                2 Days                1                                9                                   5\n";
-				text += "Sunflower    Flower           20                   2 (3)                                            1 (2)                                                3 Days                 1                               19                                  7.5\n";
-				text += "Mango         Fruit Tree      100                  7 (7)                                            4 (4)                                                10 Days              5-15                           8                                   25\n";
-				text += "Apple          Fruit Tree       100                 7 (7)                                            5 (5)                                                10 Days              10-15                         5                                   25\n\n";
+				text += "[1] Cost\n[2] Water Needs(Bonus Limit)\n[3] Fertilizer Needs(Bonus Limit)\n[4] Harvest Time\n[5] Products Produced\n[6] Base Selling Per Piece\n[7] Base Experience\n\n";
+				
+				text += "[Root Crops]\n";
+				text += "Turnip   [1] 5   [2] 1(2)   [3] 0(1)   [4] 2 Days   [5] 1-2   [6] 6   [7] 5\n";
+				text += "Carrot   [1] 10   [2] 1(2)   [3] 0(1)   [4] 3 Days   [5] 1-2   [6] 9   [7] 7.5\n";
+				text += "Potato   [1] 20   [2] 3(4)   [3] 1(2)   [4] 5 Days   [5] 1-10   [6] 3   [7] 12.5\n\n";
 
+				text += "[Flowers]\n";
+				text += "Rose   [1] 5   [2] 1(2)   [3] 0(1)   [4] 1 Day   [5] 1   [6] 5   [7] 2.5\n";
+				text += "Tulips   [1] 10   [2] 2(3)   [3] 0(1)   [4] 2 Days   [5] 1   [6] 9   [7] 5\n";
+				text += "Sunflower   [1] 20   [2] 2(3)   [3] 1(2)   [4] 3 Days   [5] 1   [6] 19   [7] 7.5\n\n";
+
+				text += "[Fruit Trees]\n";
+				text += "Mango   [1] 100   [2] 7(7)  [3] 4(4)   [4] 10 Days   [5] 5-15   [6] 8   [7] 25\n";
+				text += "Apple   [1] 100   [2] 7(7)   [3] 5(5)   [4] 10 Days   [5] 10-15   [6] 5   [7] 25\n\n";
+			
 				text += "TOOLS\n";
-				text += "Name                Cost          Experience\n";
-				text += "Pickaxe              50             15\n";
-				text += "Plow                    0              0.5\n";
-				text += "Watering Can      0               0.5\n";
-				text += "Fertilizer             10             4\n";
-				text += "Shovel                 7               2\n";
+				text += "[1] Cost\n[2] Experience\n\n";
+				text += "Pickaxe  [1] 50  [2] 15\n";
+				text += "Plow  [1] 0  [2] 0.5\n";
+				text += "Watering Can  [1] 0  [2] 0.5\n";
+				text += "Fertilizer  [1] 10  [2] 4\n";
+				text += "Shovel  [1] 7  [2] 2\n";
 				
 				playerView.popUpMessage("Seed Information", text);
 			}

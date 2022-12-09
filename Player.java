@@ -11,6 +11,12 @@ public class Player {
     private boolean isRunning;
     private int currentDay;
 
+    private int lastProductsProduced;
+    private double lastHarvestTotal;
+    private double lastWaterBonus;
+    private double lastFertilizerBonus;
+    private double lastHarvestPrice;
+
     public Player(File input) {
         this.Objectcoins = 100;
         this.farmerType = new Farmer("Farmer", 0, 0, 0, 0, 0);
@@ -30,6 +36,11 @@ public class Player {
 
         this.isRunning = true;
         this.currentDay = 1;
+        this.lastProductsProduced = 0;
+        this.lastHarvestTotal = 0;
+        this.lastWaterBonus = 0;
+        this.lastFertilizerBonus = 0;
+        this.lastHarvestPrice = 0;
     }
 
     public void scatterRocks(File input) throws FileNotFoundException {
@@ -150,14 +161,29 @@ public class Player {
 
         // Crop is successfully harvested and removed from tile
         if(crop != null) {
-            int productsProduced = crop.getSeed().getProduceMin();
             if(crop instanceof Randomizable) {
-                productsProduced = ((Randomizable) crop).generateProduce();
+                this.lastProductsProduced = ((Randomizable) crop).generateProduce();
+            } else {
+                this.lastProductsProduced= crop.getSeed().getProduceMin();
             }
-            this.Objectcoins += crop.computeHarvestPrice(this.farmerType, productsProduced);
+            // Remove Capped Water and Fertilizer
+            crop.removeExcess(this.farmerType);
+            
+            // Compute for Price
+            this.lastHarvestTotal = crop.computeHarvestTotal(this.lastProductsProduced, this.farmerType.getBonusEarnings());
+            this.lastWaterBonus = crop.computeWaterBonus(this.lastHarvestTotal);
+            this.lastFertilizerBonus = crop.computeFertilizerBonus(this.lastHarvestTotal);
+            this.lastHarvestPrice = crop.computeHarvestPrice(this.lastHarvestTotal, this.lastWaterBonus, this.lastFertilizerBonus);
+            
+            // Give Gained Objectcoins to Player
+            this.Objectcoins += this.lastHarvestPrice;
         }
     }
     
+    public Tile getTile(int index) {
+        return this.farmLot[index];
+    }
+
     public FarmerType getFarmerType() {
         return this.farmerType;
     }
@@ -177,10 +203,6 @@ public class Player {
     public Tile[] getFarmLot() {
         return this.farmLot;
     }
-
-    public Tile getTile(int index) {
-        return this.farmLot[index];
-    }
     
     public boolean getIsRunning() {
         return this.isRunning;
@@ -188,5 +210,25 @@ public class Player {
 
     public int getCurrentDay() {
         return this.currentDay;
+    }
+
+    public int getLastProductsProduced() {
+        return this.lastProductsProduced;
+    }
+
+    public double getLastHarvestTotal() {
+        return this.lastHarvestTotal;
+    }
+
+    public double getLastWaterBonus() {
+        return this.lastWaterBonus;
+    }
+
+    public double getLastFertilizerBonus() {
+        return this.lastFertilizerBonus;
+    }
+
+    public double getLastHarvestPrice() {
+        return this.lastHarvestPrice;
     }
 }
