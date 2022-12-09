@@ -79,7 +79,19 @@ public abstract class Crop {
         return false;
     }
 
-    public abstract double computeHarvestPrice(FarmerType farmerType, int productsProduced);
+    public double computeHarvestTotal(int productsProduced, double bonusEarnings) {
+        return productsProduced * (this.seed.getSellPrice() + bonusEarnings);
+    }
+    
+    public double computeWaterBonus(double harvestTotal) {
+        return harvestTotal * 0.2 * (this.waterCount - 1);
+    }
+    
+    public double computeFertilizerBonus(double harvestTotal) {
+        return harvestTotal * 0.5 * this.fertilizerCount;
+    }
+
+    public abstract double computeHarvestPrice(double harvestTotal, double waterBonus, double fertilizerBonus);
 
     public Seed getSeed() {
         return this.seed;
