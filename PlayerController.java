@@ -320,7 +320,7 @@ public class PlayerController {
 
 		String text = "";
 
-		if(currentTileIndex > -1) {
+		if(currentTileIndex != -1) {
 			text += "[TILE " + (currentTileIndex + 1) + "]\n";
 
 			if(this.playerModel.getTile(currentTileIndex).getCrop() != null) {
