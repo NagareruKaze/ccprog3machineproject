@@ -2,6 +2,14 @@ import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+/**
+ * This is the Player class for the farming simulator game for MCO1.
+ * <p>
+ * Methods include player actions for the game; scattering rocks,
+ * advancing to the next day, using the different available
+ * tools, registering different farmer types,  planting seeds,
+ * harvesting crops, and getting/returning the class' attributes.
+ */
 public class Player {
     private FarmerType farmerType;
     private double Objectcoins;
@@ -17,6 +25,11 @@ public class Player {
     private double lastFertilizerBonus;
     private double lastHarvestPrice;
 
+    /**
+     * This is the constructor for the Player class.
+     * 
+     * @param input    text file containing the rock placements
+     */
     public Player(File input) {
         this.Objectcoins = 100;
         this.farmerType = new Farmer("Farmer", 0, 0, 0, 0, 0);
@@ -43,6 +56,12 @@ public class Player {
         this.lastHarvestPrice = 0;
     }
 
+    /**
+     * Scatters rocks across the farm lot via file input.
+     * 
+     * @param input     text file containing the rock placements
+     * @throws FileNotFoundException
+     */
     public void scatterRocks(File input) throws FileNotFoundException {
         Scanner myReader = new Scanner(input);
 
@@ -53,10 +72,19 @@ public class Player {
         myReader.close();
     }
 
+    /**
+     * Adds specified experience points to the Player.
+     * 
+     * @param experience    the amount of experience points to be added
+     */
     public void addExperience(double experience) {
         this.experience += experience;
     }
 
+    /**
+     * Advances the game state to the following day and checks conditions to either 
+     * end or continue the game or change states of crops.
+     */
     public void advanceDay() {
         int growingCrop = 0;
         int witheredCrop = 0;
@@ -94,6 +122,11 @@ public class Player {
         }
     }
 
+    /**
+     * Removes specified Objectcoins to the Player.
+     * 
+     * @param Objectcoins   player's amount of money that can be spent
+     */
     public void removeObjectcoins(double Objectcoins) {
         this.Objectcoins -= Objectcoins;
     }
@@ -106,6 +139,12 @@ public class Player {
         }
     }
 
+    /**
+     * Uses a tool to do certain actions on tiles and crops.
+     * 
+     * @param tool 
+     * @param tile
+     */
     public void useTool(Tool tool, Tile tile) {
         double price = tool.getCost();
         boolean result;
@@ -127,6 +166,12 @@ public class Player {
         }
     }
 
+    /**
+     * Finds the index of the chosen tile.
+     * 
+     * @param tile
+     * @return  index of tile
+     */
     public int findTileIndex(Tile tile) {
         for(int i = 0; i < 50; i++) {
             if(this.farmLot[i].equals(tile)) {
@@ -136,6 +181,12 @@ public class Player {
         return -1;
     }
 
+    /**
+     * Buys and plants a seed in the farm lot.
+     * 
+     * @param tile
+     * @param seed
+     */
     public void plantSeed(Tile tile, Seed seed) {
         double price = seed.getCost() - this.farmerType.getSeedCostReduction();
         int index = findTileIndex(tile);
@@ -147,15 +198,21 @@ public class Player {
 
             // Plants seed on tile
             if(name.equalsIgnoreCase("Mango") || name.equalsIgnoreCase("Apple")) {
-                tile.addSeed(new FruitTree(seed, this.currentDay));
+                tile.addCrop(new FruitTree(seed, this.currentDay));
             } else if(name.equalsIgnoreCase("Turnip") || name.equalsIgnoreCase("Carrot") || name.equalsIgnoreCase("Potato")) {
-                tile.addSeed(new RootCrop(seed, this.currentDay));
+                tile.addCrop(new RootCrop(seed, this.currentDay));
             } else {
-                tile.addSeed(new Flower(seed, this.currentDay)); 
+                tile.addCrop(new Flower(seed, this.currentDay)); 
             }
         }
     }
 
+    /**
+     * Harvests and sells crop and adds corresponding Objectcoins and
+     * experience to the Player. 
+     * 
+     * @param tile
+     */
     public void harvestCrop(Tile tile) {
         Crop crop = tile.retrieveCrop(tile);
 
@@ -184,50 +241,108 @@ public class Player {
         return this.farmLot[index];
     }
 
+    /**
+     * Gets the farmer type of the Player.
+     *
+     * @return 
+     */
     public FarmerType getFarmerType() {
         return this.farmerType;
     }
 
+    /**
+     * Sets the farmer type of the Player.
+     */
     public void setFarmerType(FarmerType farmerType) {
         this.farmerType = farmerType;
     }
     
+    /**
+     * Gets the Objectcoins of the Player.
+     *
+     * @return the Objectcoins of the Player
+     */
     public double getObjectcoins() {
         return this.Objectcoins;
     }
 
+    /**
+     * Gets the experience points of the Player.
+     *
+     * @return the experience points of the Player
+     */
     public double getExperience() {
         return this.experience;
     }
 
+    /**
+     * Gets the current FarmLot of the Player.
+     *
+     * @return 
+     */
     public Tile[] getFarmLot() {
         return this.farmLot;
     }
     
+    /**
+     * Gets the game state of the game.
+     *
+     * @return the game state attribute of the farm/game
+     */
     public boolean getIsRunning() {
         return this.isRunning;
     }
 
+    /**
+     * Gets the current day of the game.
+     *
+     * @return the current day of the game
+     */
     public int getCurrentDay() {
         return this.currentDay;
     }
 
+    /**
+     * Gets the last number of products produced from crop
+     *
+     * @return last products produced
+     */
     public int getLastProductsProduced() {
         return this.lastProductsProduced;
     }
 
+    /**
+     * Gets the last computed harvest total from crop
+     *
+     * @return last harvest total
+     */
     public double getLastHarvestTotal() {
         return this.lastHarvestTotal;
     }
 
+    /**
+     * Gets the last computed water bonus from crop
+     *
+     * @return last water bonus
+     */
     public double getLastWaterBonus() {
         return this.lastWaterBonus;
     }
 
+    /**
+     * Gets the last computed fertilizer bonus from crop
+     *
+     * @return last fertilizer bonus
+     */
     public double getLastFertilizerBonus() {
         return this.lastFertilizerBonus;
     }
 
+    /**
+     * Gets the last computed harvest price from crop
+     *
+     * @return last harvest price
+     */
     public double getLastHarvestPrice() {
         return this.lastHarvestPrice;
     }

@@ -1,9 +1,20 @@
+/**
+ * This is the Tile class for the farming simulator game for MCO1.
+ * <p>
+ * Methods include tile actions in the game; checking if seed can be planted,
+ * adding and removing rocks, plowing the tile, planting
+ * a seed, removing crop, retrieving crop, getting tile information, and getting 
+ * the crop of the tile.
+ */
 public class Tile {
     private boolean hasRock;
     private boolean isAvailable;
     private boolean isPlowed;
     private Crop crop;
 
+    /**
+     * This is the constructor for the Tile class.
+     */
     public Tile() {
         this.hasRock = false;
         this.isAvailable = true;
@@ -44,11 +55,19 @@ public class Tile {
         return result;
     }
 
+    /**
+     * Adds rock on tile
+     */
     public void addRock() {
         this.hasRock = true;
         this.isAvailable = false;
     }
 
+    /**
+     * Removes rock on tile
+     * 
+     * @return true if tile has rock, false if otherwise
+     */
     public boolean removeRock() {
         if(this.hasRock == true) {
             this.hasRock = false;
@@ -58,6 +77,11 @@ public class Tile {
         return false;
     }
 
+    /**
+     * Plows the tile.
+     *
+     * @return true if tile is unplowed, false if otherwise
+     */
     public boolean plowTile() {
         if(this.isAvailable == true && this.isPlowed == false && this.hasRock == false) {
             this.isPlowed = true;
@@ -65,18 +89,27 @@ public class Tile {
         }
         return false;
     }
-    
-    public void addSeed(Crop crop) {
+
+    public void addCrop(Crop crop) {
         this.crop = crop;
         this.isAvailable = false;
     }
 
+    /**
+     * Removes a crop on the tile
+     */
     public void removeCrop() {
         this.crop = null;
         this.isAvailable = true;
         this.isPlowed = false;
     }
 
+    /**
+     * Removes and retrieves the crop on the tile
+     * 
+     * @param tile      chosen tile
+     * @return the crop that was removed
+     */
     public Crop retrieveCrop(Tile tile) {
         Crop crop = null;
         if(this.crop != null) {
@@ -90,18 +123,38 @@ public class Tile {
         return crop;
     }
     
+    /**
+     * Gets the current status if there is a rock on the tile
+     *
+     * @return the current rock status of the tile
+     */ 
     public boolean getHasRock() {
         return this.hasRock;
     }
 
+    /**
+     * Gets the availablity of the tile (whether there is a crop on it or not).
+     *
+     * @return the availability of the tile
+     */
     public boolean getIsAvailable() {
         return this.isAvailable;
     }
 
+    /**
+     * Gets the plow status of the tile (whether it is plowed or not).
+     *
+     * @return the plowed status of the tile
+     */
     public boolean getIsPlowed() {
         return this.isPlowed;
     }
-
+    
+    /**
+     * Gets the occupying crop of the tile (if any).
+     *
+     * @return the occupying crop of the tile     
+     */
     public Crop getCrop() {
         return this.crop;
     }

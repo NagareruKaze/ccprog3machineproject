@@ -1,3 +1,11 @@
+/**
+ * This is the Crop class for the farming simulator game for MCO1.
+ * <p>
+ * Methods include crop actions in the game; removing excess water and fertilizer
+ * from the crop, watering the crop, fertilizing the crop, withering the crop,
+ * computing for its harvest price, checking state of harvest,
+ * getting crop information, and getting the seed of the crop.
+*/
 public abstract class Crop {
     private final Seed seed;
     private final int harvestDay;
@@ -6,14 +14,11 @@ public abstract class Crop {
     private boolean isWithered;
     
     /**
-     * This is the Crop class for the farming simulator game for MCO1.
-     * <p>
-     * Methods include crop actions in the game; removing excess water and fertilizer
-     * from the crop, watering the crop, fertilizing the crop, withering the crop,
-     * computing for its harvest price, checking state of harvest,
-     * getting crop information, and getting the seed of the crop.
+     * This is the constructor of the crop class
+     * 
+     * @param seed
+     * @param currentDay    current day in the farm
      */
-
     public Crop(Seed seed, int currentDay) {
         this.seed = seed;
         this.harvestDay = currentDay + seed.getHarvestTime();
