@@ -10,6 +10,8 @@ public class Player {
     private Tile[] farmLot;
     private boolean isRunning;
     private int currentDay;
+
+    private int lastProductsProduced;
     private double lastHarvestTotal;
     private double lastWaterBonus;
     private double lastFertilizerBonus;
@@ -34,7 +36,9 @@ public class Player {
 
         this.isRunning = true;
         this.currentDay = 1;
+        this.lastProductsProduced = 0;
         this.lastHarvestTotal = 0;
+        this.lastWaterBonus = 0;
         this.lastFertilizerBonus = 0;
         this.lastHarvestPrice = 0;
     }
@@ -157,15 +161,16 @@ public class Player {
 
         // Crop is successfully harvested and removed from tile
         if(crop != null) {
-            int productsProduced = crop.getSeed().getProduceMin();
             if(crop instanceof Randomizable) {
-                productsProduced = ((Randomizable) crop).generateProduce();
+                this.lastProductsProduced = ((Randomizable) crop).generateProduce();
+            } else {
+                this.lastProductsProduced= crop.getSeed().getProduceMin();
             }
             // Remove Capped Water and Fertilizer
             crop.removeExcess(this.farmerType);
             
             // Compute for Price
-            this.lastHarvestTotal = crop.computeHarvestTotal(productsProduced, this.farmerType.getBonusEarnings());
+            this.lastHarvestTotal = crop.computeHarvestTotal(this.lastProductsProduced, this.farmerType.getBonusEarnings());
             this.lastWaterBonus = crop.computeWaterBonus(this.lastHarvestTotal);
             this.lastFertilizerBonus = crop.computeFertilizerBonus(this.lastHarvestTotal);
             this.lastHarvestPrice = crop.computeHarvestPrice(this.lastHarvestTotal, this.lastWaterBonus, this.lastFertilizerBonus);
@@ -175,6 +180,10 @@ public class Player {
         }
     }
     
+    public Tile getTile(int index) {
+        return this.farmLot[index];
+    }
+
     public FarmerType getFarmerType() {
         return this.farmerType;
     }
@@ -194,10 +203,6 @@ public class Player {
     public Tile[] getFarmLot() {
         return this.farmLot;
     }
-
-    public Tile getTile(int index) {
-        return this.farmLot[index];
-    }
     
     public boolean getIsRunning() {
         return this.isRunning;
@@ -205,5 +210,25 @@ public class Player {
 
     public int getCurrentDay() {
         return this.currentDay;
+    }
+
+    public int getLastProductsProduced() {
+        return this.lastProductsProduced;
+    }
+
+    public double getLastHarvestTotal() {
+        return this.lastHarvestTotal;
+    }
+
+    public double getLastWaterBonus() {
+        return this.lastWaterBonus;
+    }
+
+    public double getLastFertilizerBonus() {
+        return this.lastFertilizerBonus;
+    }
+
+    public double getLastHarvestPrice() {
+        return this.lastHarvestPrice;
     }
 }
