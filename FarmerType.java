@@ -1,3 +1,11 @@
+/**
+ * This is the abstract FarmerType class for the farming simulator game for MCO2.
+ * <p>
+ * Methods mostly include getting information on the respective farmer type,
+ * including name, level requirement, bonus earnings, seed cost reduction,
+ * water bonus increase, fertilizer bonus incrase, and registration fee.
+ */
+
 public abstract class FarmerType {
     private final String name;
     private final int levelReq;

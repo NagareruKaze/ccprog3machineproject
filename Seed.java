@@ -1,5 +1,5 @@
 /**
- * This is the Seed class for the farming simulator game for MCO1.
+ * This is the Seed class for the farming simulator game for MCO2.
  * <p>
  * Methods include seed actions in the game; getting seed information.
  */

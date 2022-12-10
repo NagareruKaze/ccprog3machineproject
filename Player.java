@@ -3,7 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- * This is the Player class for the farming simulator game for MCO1.
+ * This is the Player class for the farming simulator game for MCO2.
  * <p>
  * Methods include player actions for the game; scattering rocks,
  * advancing to the next day, using the different available

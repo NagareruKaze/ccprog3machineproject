@@ -1,5 +1,5 @@
 /**
- * This is the Tile class for the farming simulator game for MCO1.
+ * This is the Tile class for the farming simulator game for MCO2.
  * <p>
  * Methods include tile actions in the game; checking if seed can be planted,
  * adding and removing rocks, plowing the tile, planting

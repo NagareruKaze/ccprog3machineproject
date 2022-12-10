@@ -1,5 +1,5 @@
 /**
- * This is the Crop class for the farming simulator game for MCO1.
+ * This is the Crop class for the farming simulator game for MCO2.
  * <p>
  * Methods include crop actions in the game; removing excess water and fertilizer
  * from the crop, watering the crop, fertilizing the crop, withering the crop,
@@ -16,7 +16,7 @@ public abstract class Crop {
     /**
      * This is the constructor of the crop class
      * 
-     * @param seed
+     * @param seed          the seed of the crop
      * @param currentDay    current day in the farm
      */
     public Crop(Seed seed, int currentDay) {
