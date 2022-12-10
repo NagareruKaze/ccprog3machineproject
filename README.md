@@ -1,6 +1,6 @@
 # Farming Simulator Game CCPROG3 MP
 ### by Aaron Jardenil & Jaeme Rebano S18
-### Professor: Edward Tighe
+#### Professor: Edward Tighe
 
 ## Machine Project Description
 Our machine project for CCPROG3 for Term 1 AY2022-2023 involves making a 
