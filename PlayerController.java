@@ -331,18 +331,19 @@ public class PlayerController {
 		String text = "";
 
 		if(currentTileIndex != -1) {
+			Tile tile = this.playerModel.getTile(currentTileIndex);
 			text += "[TILE " + (currentTileIndex + 1) + "]\n";
 
-			if(this.playerModel.getTile(currentTileIndex).getCrop() != null) {
-				text += this.playerModel.getTile(currentTileIndex).getCrop().getSeed().getName() + "\n";
-				text += "Watered " + this.playerModel.getTile(currentTileIndex).getCrop().getWaterCount() + "/" + this.playerModel.getTile(currentTileIndex).getCrop().getSeed().getWaterNeeds() + " (" + (this.playerModel.getTile(currentTileIndex).getCrop().getSeed().getWaterBonus() + this.playerModel.getFarmerType().getWaterBonusIncrease()) + ") times\n";
-				text += "Fertilized " + this.playerModel.getTile(currentTileIndex).getCrop().getFertilizerCount() + "/" + this.playerModel.getTile(currentTileIndex).getCrop().getSeed().getFertilizerNeeds() + " (" + (this.playerModel.getTile(currentTileIndex).getCrop().getSeed().getWaterBonus() + this.playerModel.getFarmerType().getWaterBonusIncrease()) + ") times\n";
+			if(tile.getCrop() != null) {
+				text += tile.getCrop().getSeed().getName() + "\n";
+				text += "Watered " + tile.getCrop().getWaterCount() + "/" + tile.getCrop().getSeed().getWaterNeeds() + " (" + (tile.getCrop().getSeed().getWaterBonus() + this.playerModel.getFarmerType().getWaterBonusIncrease()) + ") times\n";
+				text += "Fertilized " + tile.getCrop().getFertilizerCount() + "/" + tile.getCrop().getSeed().getFertilizerNeeds() + " (" + (tile.getCrop().getSeed().getWaterBonus() + this.playerModel.getFarmerType().getWaterBonusIncrease()) + ") times\n";
 			
-				if(this.playerModel.getTile(currentTileIndex).getCrop().isReady() && this.playerModel.getCurrentDay() == this.playerModel.getTile(currentTileIndex).getCrop().getHarvestDay())
+				if(tile.getCrop().isReady() && this.playerModel.getCurrentDay() == tile.getCrop().getHarvestDay())
 					text += "READY FOR HARVEST!!\n";
-				else if(!this.playerModel.getTile(currentTileIndex).getCrop().getIsWithered() && this.playerModel.getCurrentDay() != this.playerModel.getTile(currentTileIndex).getCrop().getHarvestDay())
-					text += (this.playerModel.getTile(currentTileIndex).getCrop().getHarvestDay() - this.playerModel.getCurrentDay())+ " days until harvest day...\n";
-				else if(this.playerModel.getTile(currentTileIndex).getCrop().getIsWithered())
+				else if(!tile.getCrop().getIsWithered() && this.playerModel.getCurrentDay() != tile.getCrop().getHarvestDay())
+					text += (tile.getCrop().getHarvestDay() - this.playerModel.getCurrentDay())+ " days until harvest day...\n";
+				else if(tile.getCrop().getIsWithered())
 					text += "Crop has withered.\n";
 			}
 
@@ -439,16 +440,17 @@ public class PlayerController {
 		double fertilizer = this.f.getCost();
 		double shovel = this.shovel.getCost();
 
-		double turnip = this.turnip.getCost() - this.playerModel.getFarmerType().getSeedCostReduction();
-		double carrot = this.carrot.getCost() - this.playerModel.getFarmerType().getSeedCostReduction();
-		double potato = this.potato.getCost() - this.playerModel.getFarmerType().getSeedCostReduction();
+		double seedCostReduction = this.playerModel.getFarmerType().getSeedCostReduction();
+		double turnip = this.turnip.getCost() - seedCostReduction;
+		double carrot = this.carrot.getCost() - seedCostReduction;
+		double potato = this.potato.getCost() - seedCostReduction;
 
-		double rose = this.rose.getCost() - this.playerModel.getFarmerType().getSeedCostReduction();
-		double tulips = this.tulips.getCost() - this.playerModel.getFarmerType().getSeedCostReduction();
-		double sunflower = this.sunflower.getCost() - this.playerModel.getFarmerType().getSeedCostReduction();
+		double rose = this.rose.getCost() - seedCostReduction;
+		double tulips = this.tulips.getCost() - seedCostReduction;
+		double sunflower = this.sunflower.getCost() - seedCostReduction;
 
-		double mango = this.mango.getCost() - this.playerModel.getFarmerType().getSeedCostReduction();
-		double apple = this.apple.getCost() - this.playerModel.getFarmerType().getSeedCostReduction();
+		double mango = this.mango.getCost() - seedCostReduction;
+		double apple = this.apple.getCost() - seedCostReduction;
 
 
 		this.playerView.addButtonCosts(pickaxe, plow, wateringCan, fertilizer, shovel, turnip, carrot, potato, rose, tulips, sunflower, mango, apple);
@@ -457,43 +459,41 @@ public class PlayerController {
 	//UPDATE
 	public void updateActionButtons() {
 
-		//tool buttons
-
 		if(currentTileIndex != -1) {
-			boolean pickaxe = this.playerModel.getTile(currentTileIndex).getHasRock() && !this.playerModel.getTile(currentTileIndex).getIsPlowed() && this.playerModel.getObjectcoins() >= 50;
-			boolean plow = !this.playerModel.getTile(currentTileIndex).getHasRock() && !this.playerModel.getTile(currentTileIndex).getIsPlowed();
-			boolean wateringCan = !this.playerModel.getTile(currentTileIndex).getHasRock() && !this.playerModel.getTile(currentTileIndex).getIsAvailable() && !this.playerModel.getTile(currentTileIndex).getCrop().getIsWithered();
+			Tile tile = this.playerModel.getTile(currentTileIndex);
+			double seedCostReduction = this.playerModel.getFarmerType().getSeedCostReduction();
+
+			//tool buttons
+			boolean pickaxe = tile.getHasRock() && !tile.getIsPlowed() && this.playerModel.getObjectcoins() >= 50;
+			boolean plow = !tile.getHasRock() && !tile.getIsPlowed();
+			boolean wateringCan = !tile.getHasRock() && !tile.getIsAvailable() && !this.playerModel.getTile(currentTileIndex).getCrop().getIsWithered();
 			boolean fertilizer = wateringCan && this.playerModel.getObjectcoins() >= this.f.getCost();
 			boolean shovel = this.playerModel.getObjectcoins() >= this.shovel.getCost();
+			
 			this.playerView.setToolButtons(pickaxe, plow, wateringCan, fertilizer, shovel);
-		}
-		else
-			this.playerView.setToolButtons(false, false, false, false, false);
 
+			//plant buttons
+			boolean harvestCrop = tile.getCrop() != null && tile.getCrop().isReady() && this.playerModel.getCurrentDay() == tile.getCrop().getHarvestDay();
 
-		//plant buttons
-		if(currentTileIndex != -1) {
-			boolean harvestCrop = this.playerModel.getTile(currentTileIndex).getCrop() != null && this.playerModel.getTile(currentTileIndex).getCrop().isReady() && this.playerModel.getCurrentDay() == this.playerModel.getTile(currentTileIndex).getCrop().getHarvestDay();
+			boolean turnip = tile.canPlant(this.playerModel.getFarmLot(), this.turnip, currentTileIndex) && this.playerModel.getObjectcoins() >= (this.turnip.getCost() - seedCostReduction);
+			boolean carrot = tile.getCrop() == null && tile.getIsPlowed() && this.playerModel.getObjectcoins() >= (this.carrot.getCost() - seedCostReduction);
+			boolean potato = tile.getCrop() == null && tile.getIsPlowed() && this.playerModel.getObjectcoins() >= (this.potato.getCost() - seedCostReduction);
 
-			boolean turnip = this.playerModel.getTile(currentTileIndex).canPlant(this.playerModel.getFarmLot(), this.turnip, currentTileIndex) && this.playerModel.getObjectcoins() >= (this.turnip.getCost() - this.playerModel.getFarmerType().getSeedCostReduction());
-			boolean carrot = this.playerModel.getTile(currentTileIndex).getCrop() == null && this.playerModel.getTile(currentTileIndex).getIsPlowed() && this.playerModel.getObjectcoins() >= (this.carrot.getCost() - this.playerModel.getFarmerType().getSeedCostReduction());
-			boolean potato = this.playerModel.getTile(currentTileIndex).getCrop() == null && this.playerModel.getTile(currentTileIndex).getIsPlowed() && this.playerModel.getObjectcoins() >= (this.potato.getCost() - this.playerModel.getFarmerType().getSeedCostReduction());
+			boolean rose = tile.getCrop() == null && tile.getIsPlowed() && this.playerModel.getObjectcoins() >= (this.rose.getCost() - seedCostReduction);
+			boolean tulips = tile.getCrop() == null && tile.getIsPlowed() && this.playerModel.getObjectcoins() >= (this.tulips.getCost() - seedCostReduction);
+			boolean sunflower = tile.getCrop() == null && tile.getIsPlowed() && this.playerModel.getObjectcoins() >= (this.sunflower.getCost() - seedCostReduction);
 
-			boolean rose = this.playerModel.getTile(currentTileIndex).getCrop() == null && this.playerModel.getTile(currentTileIndex).getIsPlowed() && this.playerModel.getObjectcoins() >= (this.rose.getCost() - this.playerModel.getFarmerType().getSeedCostReduction());
-			boolean tulips = this.playerModel.getTile(currentTileIndex).getCrop() == null && this.playerModel.getTile(currentTileIndex).getIsPlowed() && this.playerModel.getObjectcoins() >= (this.tulips.getCost() - this.playerModel.getFarmerType().getSeedCostReduction());
-			boolean sunflower = this.playerModel.getTile(currentTileIndex).getCrop() == null && this.playerModel.getTile(currentTileIndex).getIsPlowed() && this.playerModel.getObjectcoins() >= (this.sunflower.getCost() - this.playerModel.getFarmerType().getSeedCostReduction());
-
-			boolean mango = this.playerModel.getTile(currentTileIndex).canPlant(this.playerModel.getFarmLot(), this.mango, currentTileIndex) && this.playerModel.getObjectcoins() >= (this.mango.getCost() - this.playerModel.getFarmerType().getSeedCostReduction());
-			boolean apple = this.playerModel.getTile(currentTileIndex).canPlant(this.playerModel.getFarmLot(), this.apple, currentTileIndex) && this.playerModel.getObjectcoins() >= (this.apple.getCost() - this.playerModel.getFarmerType().getSeedCostReduction());
+			boolean mango = tile.canPlant(this.playerModel.getFarmLot(), this.mango, currentTileIndex) && this.playerModel.getObjectcoins() >= (this.mango.getCost() - seedCostReduction);
+			boolean apple = tile.canPlant(this.playerModel.getFarmLot(), this.apple, currentTileIndex) && this.playerModel.getObjectcoins() >= (this.apple.getCost() - seedCostReduction);
 
 			this.playerView.setPlantButtons(harvestCrop, turnip, carrot, potato, rose, tulips, sunflower, mango, apple);
 		}
-		else
-			 this.playerView.setPlantButtons(false, false, false, false, false, false, false, false, false);
-
+		else {
+			this.playerView.setToolButtons(false, false, false, false, false);
+			this.playerView.setPlantButtons(false, false, false, false, false, false, false, false, false);
+		}
 
 		//farm buttons
-
 		boolean register = ((Registerable)this.playerModel.getFarmerType()).canRegister(this.playerModel);
 
 		this.playerView.setFarmButtons(register);
