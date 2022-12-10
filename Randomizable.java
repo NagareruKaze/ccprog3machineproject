@@ -1,7 +1,5 @@
 /**
- * This is the Randomizable interface for the farming simulator game for MCO2.
- * <p>
- * This marks the classes that have the {@link #generateProduce} method.
+ * This marks the classes that have the {@link #generateProduce generateProduce} method.
  */
 
 public interface Randomizable {

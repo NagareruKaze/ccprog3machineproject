@@ -1,7 +1,5 @@
 /**
- * This is the Removable interface for the farming simulator game for MCO2.
- * <p>
- * This marks the classes that have the {@link #remove(Tile)} method.
+ * This marks the classes that have the {@link #remove(Tile) remove} method.
  */
 
 public interface Removable {

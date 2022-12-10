@@ -1,7 +1,5 @@
 /**
- * This is the Addable interface for the farming simulator game for MCO2.
- * <p>
- * This marks the classes that have the {@link #add(Crop)} method.
+ * This marks the classes that have the {@link #add(Crop) add} method.
  */
 
 public interface Addable {

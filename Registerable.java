@@ -1,8 +1,6 @@
 /**
- * This is the Registerable interface for the farming simulator game for MCO2.
- * <p>
- * This marks the classes that have the {@link #canRegister(Player)} 
- * and {@link #upgrade(Player)} methods.
+ * This marks the classes that have the {@link #canRegister(Player) canRegister} 
+ * and {@link #upgrade(Player) upgrade} methods.
  */
 
 public interface Registerable {
