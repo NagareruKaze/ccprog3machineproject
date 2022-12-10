@@ -507,7 +507,7 @@ public class PlayerController {
 		}
 
 		//farm buttons
-		boolean register = ((Registerable)this.playerModel.getFarmerType()).canRegister(this.playerModel);
+		boolean register = (((Registerable)this.playerModel.getFarmerType()).canRegister(this.playerModel) && !(this.playerModel.getFarmerType() instanceof LegendaryFarmer));
 
 		this.playerView.setFarmButtons(register);
 	}
