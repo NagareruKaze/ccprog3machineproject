@@ -316,7 +316,7 @@ public class PlayerController {
 				text += "Seed Cost Reduction: -3\n";
 				text += "Water Bonus Increase: +2\n";
 				text += "Fertilizer Bonus Increase: +1\n";
-				text += "Registration Fee: 200\n\n";
+				text += "Registration Fee: 400\n\n";
 
 				playerView.popUpMessage("Register Information", text);
 			}
