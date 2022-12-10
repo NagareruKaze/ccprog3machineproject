@@ -21,6 +21,7 @@ public class Player {
 
     private int lastProductsProduced;
     private double lastHarvestTotal;
+    
     private double lastWaterBonus;
     private double lastFertilizerBonus;
     private double lastHarvestPrice;

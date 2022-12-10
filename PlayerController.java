@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 /**
  * This is the controller class for the MVC for the farming simulator game for MCO2.
@@ -125,10 +127,21 @@ public class PlayerController {
 		playerView.setHarvestCropButtonListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
 				playerModel.harvestCrop(playerModel.getTile(currentTileIndex));
+
+				DecimalFormat df = new DecimalFormat("0.00");
+				String text = "";
+				text += "Products Produced: " + playerModel.getLastProductsProduced() + "\n";
+				text += "Harvest Total: " + df.format(playerModel.getLastHarvestTotal()) + "\n";
+				text += "Water Bonus: " + df.format(playerModel.getLastWaterBonus()) + "\n";
+				text += "Fertilizer Bonus: " + df.format(playerModel.getLastFertilizerBonus()) + "\n--------------------\n";
+				text += "Total Earnings: " + df.format(playerModel.getLastHarvestPrice()) + "\n";
+
+				playerView.popUpMessage("SUCCESSFULLY HARVEST!", text);
 				updateTiles();
 				updateTextPrompt();
 				updateActionButtons();
 				checkGameState();
+
 			}
 		});
 
