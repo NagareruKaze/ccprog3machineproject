@@ -5,6 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+/**
+ * This is the controller class for the MVC for the farming simulator game for MCO2.
+ */
+
 public class PlayerController {
 	private Player playerModel;
 	private int currentTileIndex;

@@ -5,6 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.Object;
 
+/**
+ * This is the view class for the MVC for the farming simulator game for MCO2.
+ */
+
 public class PlayerView {
 
 	private JFrame mainFrame;
