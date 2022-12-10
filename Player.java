@@ -60,7 +60,7 @@ public class Player {
      * Scatters rocks across the farm lot via file input.
      * 
      * @param input     text file containing the rock placements
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if file is not found
      */
     public void scatterRocks(File input) throws FileNotFoundException {
         Scanner myReader = new Scanner(input);
@@ -131,6 +131,11 @@ public class Player {
         this.Objectcoins -= Objectcoins;
     }
 
+    /**
+     * Registers the player to the next farmer type.
+     * 
+     * @param player the player object of the Player
+     */
     public void register(Player player) {
         if(this.farmerType instanceof Registerable) {
            if(((Registerable) this.farmerType).canRegister(player)) {
@@ -142,8 +147,8 @@ public class Player {
     /**
      * Uses a tool to do certain actions on tiles and crops.
      * 
-     * @param tool 
-     * @param tile
+     * @param tool  the tool to be used
+     * @param tile  the tile for the tool to be used on
      */
     public void useTool(Tool tool, Tile tile) {
         double price = tool.getCost();
@@ -169,7 +174,7 @@ public class Player {
     /**
      * Finds the index of the chosen tile.
      * 
-     * @param tile
+     * @param tile  the tile to get the index of
      * @return  index of tile
      */
     public int findTileIndex(Tile tile) {
@@ -184,8 +189,8 @@ public class Player {
     /**
      * Buys and plants a seed in the farm lot.
      * 
-     * @param tile
-     * @param seed
+     * @param tile  the tile to be planted on
+     * @param seed  the seed to be planted
      */
     public void plantSeed(Tile tile, Seed seed) {
         double price = seed.getCost() - this.farmerType.getSeedCostReduction();
@@ -211,7 +216,7 @@ public class Player {
      * Harvests and sells crop and adds corresponding Objectcoins and
      * experience to the Player. 
      * 
-     * @param tile
+     * @param tile  the tile to be harvested
      */
     public void harvestCrop(Tile tile) {
         Crop crop = tile.retrieveCrop(tile);
@@ -237,6 +242,12 @@ public class Player {
         }
     }
     
+    /**
+     * Gets the tile of the farmlot based on the index.
+     *
+     * @param index the index of the tile to be gotten
+     * @return the specified tile
+     */
     public Tile getTile(int index) {
         return this.farmLot[index];
     }
@@ -244,7 +255,7 @@ public class Player {
     /**
      * Gets the farmer type of the Player.
      *
-     * @return 
+     * @return the farmer type
      */
     public FarmerType getFarmerType() {
         return this.farmerType;
@@ -252,6 +263,8 @@ public class Player {
 
     /**
      * Sets the farmer type of the Player.
+     * 
+     * @param farmerType the farmer type
      */
     public void setFarmerType(FarmerType farmerType) {
         this.farmerType = farmerType;
@@ -278,7 +291,7 @@ public class Player {
     /**
      * Gets the current FarmLot of the Player.
      *
-     * @return 
+     * @return the farmlot of the player
      */
     public Tile[] getFarmLot() {
         return this.farmLot;

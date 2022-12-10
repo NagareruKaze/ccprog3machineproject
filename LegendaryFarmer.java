@@ -1,6 +1,5 @@
 /**
- * This is the LegendaryFarmer subclass under {@link FarmerType} 
- * for the farming simulator game for MCO2.
+ * This is the LegendaryFarmer subclass under {@link FarmerType}.
  */
 
 public class LegendaryFarmer extends FarmerType {

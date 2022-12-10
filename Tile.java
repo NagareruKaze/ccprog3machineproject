@@ -22,6 +22,14 @@ public class Tile {
         this.crop = null;
     }
 
+    /**
+     * Checks whether a tile is plantable or not.
+     *
+     * @param farmLot    the farmlot to be planted on
+     * @param seed       the seed to be planted
+     * @param index      the index of the tile to be planted on
+     * @return true if the seed can be planted on the tile, otherwise false
+     */
     public boolean canPlant(Tile[] farmLot, Seed seed, int index) {
         boolean result = true;
         
@@ -56,7 +64,7 @@ public class Tile {
     }
 
     /**
-     * Adds rock on tile
+     * Adds rock on tile.
      */
     public void addRock() {
         this.hasRock = true;
@@ -64,7 +72,7 @@ public class Tile {
     }
 
     /**
-     * Removes rock on tile
+     * Removes rock on tile.
      * 
      * @return true if tile has rock, false if otherwise
      */
@@ -90,13 +98,18 @@ public class Tile {
         return false;
     }
 
+    /**
+     * Adds a crop to this tile.
+     * 
+     * @param crop the crop to be added
+     */
     public void addCrop(Crop crop) {
         this.crop = crop;
         this.isAvailable = false;
     }
 
     /**
-     * Removes a crop on the tile
+     * Removes a crop on the tile.
      */
     public void removeCrop() {
         this.crop = null;
@@ -105,7 +118,7 @@ public class Tile {
     }
 
     /**
-     * Removes and retrieves the crop on the tile
+     * Removes and retrieves the crop on the tile.
      * 
      * @param tile      chosen tile
      * @return the crop that was removed
@@ -124,7 +137,7 @@ public class Tile {
     }
     
     /**
-     * Gets the current status if there is a rock on the tile
+     * Gets the current status if there is a rock on the tile.
      *
      * @return the current rock status of the tile
      */ 

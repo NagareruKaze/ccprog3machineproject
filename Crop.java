@@ -5,7 +5,7 @@
  * from the crop, watering the crop, fertilizing the crop, withering the crop,
  * computing for its harvest price, checking state of harvest,
  * getting crop information, and getting the seed of the crop.
-*/
+ */
 public abstract class Crop {
     private final Seed seed;
     private final int harvestDay;
