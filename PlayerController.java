@@ -350,7 +350,7 @@ public class PlayerController {
 			if(tile.getCrop() != null) {
 				text += tile.getCrop().getSeed().getName() + "\n";
 				text += "Watered " + tile.getCrop().getWaterCount() + "/" + tile.getCrop().getSeed().getWaterNeeds() + " (" + (tile.getCrop().getSeed().getWaterBonus() + this.playerModel.getFarmerType().getWaterBonusIncrease()) + ") times\n";
-				text += "Fertilized " + tile.getCrop().getFertilizerCount() + "/" + tile.getCrop().getSeed().getFertilizerNeeds() + " (" + (tile.getCrop().getSeed().getWaterBonus() + this.playerModel.getFarmerType().getWaterBonusIncrease()) + ") times\n";
+				text += "Fertilized " + tile.getCrop().getFertilizerCount() + "/" + tile.getCrop().getSeed().getFertilizerNeeds() + " (" + (tile.getCrop().getSeed().getFertilizerBonus() + this.playerModel.getFarmerType().getFertilizerBonusIncrease()) + ") times\n";
 			
 				if(tile.getCrop().isReady() && this.playerModel.getCurrentDay() == tile.getCrop().getHarvestDay())
 					text += "READY FOR HARVEST!!\n";

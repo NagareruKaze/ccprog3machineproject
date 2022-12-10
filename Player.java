@@ -227,7 +227,7 @@ public class Player {
             if(crop instanceof Randomizable) {
                 this.lastProductsProduced = ((Randomizable) crop).generateProduce();
             } else {
-                this.lastProductsProduced= crop.getSeed().getProduceMin();
+                this.lastProductsProduced = crop.getSeed().getProduceMin();
             }
             // Remove Capped Water and Fertilizer
             crop.removeExcess(this.farmerType);
@@ -240,6 +240,7 @@ public class Player {
             
             // Give Gained Objectcoins to Player
             this.Objectcoins += this.lastHarvestPrice;
+            addExperience(crop.getSeed().getExperienceYield());
         }
     }
     
